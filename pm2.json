@@ -1,0 +1,10 @@
+{
+  "apps" : [{
+    "name"        : "xkcd",
+    "script"      : "./dist/index.js",
+    "watch": false,
+    "max_memory_restart": "800M",
+    "instances": 1,
+    "exec_mode": "cluster"
+  }]
+}

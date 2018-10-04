@@ -1,0 +1,103 @@
+.bin-container {
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    background: #f7f7f7;
+}
+
+.hide {
+    display: none !important;
+}
+
+.editable-header {
+    cursor: pointer;
+}
+
+.inline-input {
+    padding: 0 5px;
+    font-size: 14px;
+}
+button.override.inline-button {
+    padding: 0 5px;
+}
+.u-slider-x .handle:after, .u-slider-y .handle:after {
+    border: 3px solid var(--btn-solid-color);
+}
+
+.u-slider-x .handle:after {
+    top: -4px;
+    cursor: move;
+}
+.u-slider {
+    background-color: white;
+}
+.u-slider-x .handle {
+    transform: scale(1);
+    transition: all 0.2s ease-in-out;
+}
+.u-slider-x .handle:hover {
+    transform: scale(1.2);
+}
+.u-slider .value {
+    background-color: var(--btn-solid-color);
+}
+
+.cellar-toolbar {
+	flex: 0 0 60px;
+	padding: 0px 30px;
+	display: flex;
+	background: #2f2f2f;
+	align-items: center;
+}
+.cellar-toolbar .cellar-filters {
+	flex: 1;
+	display: flex;
+	height: 30px;
+}
+.cellar-toolbar .button-group {
+	width: 50%;
+	display: flex;
+	justify-content: flex-end;
+	height: 30px;
+}
+.cellar-toolbar .button-group.left {
+	justify-content: flex-start;
+}
+.cellar-toolbar .button-group.end {
+	font-size: 14px;
+    font-weight: 600;
+    line-height: var(--header-height);
+	width: 10%;
+    height: auto;
+}
+
+.cellar-toolbar .cellar-action-button:not(:first-of-type) {
+	margin-left: 20px;
+}
+.cellar-toolbar .cellar-filter {
+	display: flex;
+	align-items: center;
+	white-space: nowrap;
+}
+.cellar-toolbar .cellar-filter label {
+	padding: 0px;
+	padding-right: 10px;
+}
+.cellar-toolbar .cellar-filter input, .cellar-toolbar .cellar-filter select {
+	line-height: 12px;
+	height: 100%;
+	padding: 0px 10px;
+}
+.cellar-toolbar .cellar-filter input {
+	width: 150px;
+}
+.cellar-toolbar .cellar-filter.num-spaces input {
+	width: 50px;
+}
+.cellar-toolbar .cellar-filter:not(:first-of-type) {
+	margin-left: 20px;
+}

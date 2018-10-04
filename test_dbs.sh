@@ -1,0 +1,1 @@
+docker run -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -p "3307:3306" -v "`pwd`/../dev_setup/:/docker-entrypoint-initdb.d" -d --name mysql-test mysql:5.7

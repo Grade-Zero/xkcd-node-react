@@ -1,0 +1,13 @@
+{
+    "swagger": {
+        "outputDirectory": "./dist",
+        "entryFile": "./api/server.ts",
+        "basePath": "/v1"
+    },
+    "routes": {
+        "basePath": "/v1",
+        "entryFile": "./api/index.ts",
+        "routesDir": "./api",
+        "authenticationModule": "./api/utils/authentication.ts"
+    }
+}
