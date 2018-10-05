@@ -259,6 +259,18 @@ const models: TsoaRoute.Models = {
             "payload": { "dataType": "string", "required": true },
         },
     },
+    "Comic": {
+        "properties": {
+            "title": { "dataType": "string", "required": true },
+            "url": { "dataType": "string", "required": true },
+        },
+    },
+    "StandardResponseComic": {
+        "properties": {
+            "data": { "ref": "Comic", "required": true },
+            "meta": { "dataType": "any", "required": true },
+        },
+    },
 };
 
 export function RegisterRoutes(app: any) {

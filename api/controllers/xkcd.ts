@@ -11,8 +11,9 @@ export class XKCDController {
     @Tags('Open')
     public async Walls(
         @Query() limit?: number,
-    ): Promise<StandardResponse<boolean>> {
+    ): Promise<StandardResponse<Comic>> {
         let data = await getRandomComic()
+        console.log(data)
         return {data, meta: {}};
     }
 }

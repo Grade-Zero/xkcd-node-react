@@ -1,4 +1,4 @@
-version: '2'
+version: '2.2'
 services:
   node_server:
     image: prendi/cellar_project:v1.0.0

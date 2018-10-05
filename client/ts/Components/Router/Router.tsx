@@ -48,7 +48,7 @@ export class Router extends React.Component<{}, typeof defaultState> {
                     verifyAuthenticated={this.verifyAuthenticated.bind(this)}
                     authenticated={this.state.authenticated}
                     component={Login} />
-                <PrivateRoute path='/cellar/' authenticated={this.state.authenticated} component={AppContainer} />
+                <PublicRoute path='/cellar/' authenticated={this.state.authenticated} component={AppContainer} />
                 <Redirect to='/404' />
             </Switch>
         ) : (
