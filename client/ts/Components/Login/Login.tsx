@@ -35,7 +35,7 @@ export class Login extends React.Component<{ verifyAuthenticated: Function }, ty
           })
           console.log(result)
           this.props.verifyAuthenticated(true, () => {
-              window.location.href = '/cellar/';
+              window.location.href = '/comics/';
           })
       } catch (e) {
           console.error(e)

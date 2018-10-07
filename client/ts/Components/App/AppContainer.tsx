@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { App } from './App'
 import { RootState } from '../../store';
 import { Dispatch } from 'redux';
-import { actions as userActions } from '../../store/user/action'
 import { actions as comicActions } from '../../store/comic/action'
 import axios from 'axios';
 import { generateApiUrl } from '../../services/api';
@@ -18,7 +17,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     load: async () => {
         let fetchPayload = await axios.get(generateApiUrl('/v1/xkcd/comics'), config.api.defaultConf)
         await axios.post(generateApiUrl(`/v1/xkcd/comic`), fetchPayload.data.data[0], config.api.defaultConf)
-        // Can't connect to db due to no docker
         let [comicPayload] = await Promise.all([
             axios.get(generateApiUrl('/v1/xkcd/dbComics'), config.api.defaultConf)
         ])

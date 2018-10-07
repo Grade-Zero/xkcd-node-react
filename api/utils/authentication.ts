@@ -5,7 +5,7 @@ import { isValidSession } from '../services/authentication';
 import { getUserById } from '../db/user';
 import { SessionDb } from '../models/session';
 
-const cookieName = 'cellar_session'
+const cookieName = 'xkcd_session'
 export async function expressAuthentication(request: express.Request, securityName: string, scopes?: string[]): Promise<any> {
     if (securityName === cookieName) {
         let sessionId: null | string = null;

@@ -17,7 +17,7 @@ export class Router extends React.Component<{}, typeof defaultState> {
     }
 
     componentWillMount() {
-        this.verifyAuthenticated()
+        // this.verifyAuthenticated()
     }
 
     async verifyAuthenticated(authenticated?: boolean, callback?: any) {
@@ -43,7 +43,7 @@ export class Router extends React.Component<{}, typeof defaultState> {
     render() {
         return (this.state.authenticated !== undefined) ? (
             <Switch>
-                <PublicRoute path='/cellar/' authenticated={this.state.authenticated} component={AppContainer} />
+                <PublicRoute path='/comics/' authenticated='true' component={AppContainer} />
                 <Redirect to='/404' />
             </Switch>
         ) : (
@@ -60,7 +60,7 @@ const PrivateRoute = ({ component: Component, authenticated: authenticated, ...r
             <Component {...props} />
         ) : (
                 <Redirect to={{
-                    pathname: '/cellar/login',
+                    pathname: '/comics/login',
                     state: { from: props.location }
                 }} />
             )

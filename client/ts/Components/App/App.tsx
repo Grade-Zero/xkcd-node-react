@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { ComponentProps } from './AppContainer'
-import { Header } from '../Header/Header'
 import HeaderContainer from '../Header/HeaderContainer'
 import HomeContainer from '../Home/HomeContainer'
 import { Loading } from '../Loading/Loading'
@@ -20,10 +19,8 @@ export class App extends React.Component<ComponentProps, typeof defaultState> {
     }
 
     componentWillMount() {
-        console.log('componentWillMount')
         this.setState({loading: true}, async () => {
             await this.props.load()
-            // await this.props.loadTest()
             this.setState({loading: false})
         })
     }

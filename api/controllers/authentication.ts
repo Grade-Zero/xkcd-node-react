@@ -18,7 +18,7 @@ export class AuthenticationController extends Controller {
     ): Promise<StandardResponse<LoginResApi>> {
         const data = await login(body)
 
-        let resCookie = cookie.serialize('cellar_session', String(data.session.id), {
+        let resCookie = cookie.serialize('xkcd_session', String(data.session.id), {
             path: '/',
             httpOnly: true,
             maxAge: 60 * 60 * 24 * 7 * 52 * 2 // 2 years
@@ -36,7 +36,7 @@ export class AuthenticationController extends Controller {
      */
     @Get('valid_session')
     @Tags('Authenticated')
-    @Security('cellar_session')
+    @Security('xkcd_session')
     public async ValidSession(
         @Request() request: any
     ): Promise<StandardResponse<LogoutResApi>> {
@@ -53,7 +53,7 @@ export class AuthenticationController extends Controller {
     ): Promise<StandardResponse<LogoutResApi>> {
         console.log(request.cookies[config.sessionName])
         await deleteSession(request.cookies[config.sessionName])
-        let resCookie = cookie.serialize('cellar_session', 'deleted', {
+        let resCookie = cookie.serialize('xkcd_session', 'deleted', {
             path: '/',
             httpOnly: true,
             maxAge: (60 * 60 * 24 * 7 * 52 * 2 * -1) // expires cookie

@@ -30,12 +30,6 @@ export async function boot() {
     app.get(route, (req, res) => res.sendFile(path.join(publicDistPath, 'index.html')))
   })
 
-  // let clientRoutes = ['/cellar']
-  // _.each(clientRoutes, (route) => {
-  //   app.use(route, express.static(__dirname + '/../client/dist'));
-  //   app.get(route, (req, res) => res.sendFile(path.join(publicDistPath, 'index.html')))
-  // })
-
   // Error Handler
   app.use(m.errorHandler)
 

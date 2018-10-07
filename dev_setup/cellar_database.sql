@@ -1,6 +1,6 @@
 -- MySQL dump 10.15  Distrib 10.0.34-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: 127.0.0.1    Database: cellar
+-- Host: 127.0.0.1    Database: xkcd
 -- ------------------------------------------------------
 -- Server version	5.7.23
 
@@ -16,7 +16,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `cellar`
+-- Current Database: `xkcd`
 --
 
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `xkcd` /*!40100 DEFAULT CHARACTER SET utf8 */;
@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS `comics`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `comics` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `title` vachar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
   `url` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
