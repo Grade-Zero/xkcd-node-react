@@ -1,9 +1,8 @@
 import * as _ from 'lodash'
 import * as React from 'react'
 import { ComponentProps } from './AppContainer'
+import HomeContainer from '../Home/HomeContainer'
 import { Loading } from '../Loading/Loading'
-import { UserApi } from '../../../../api/models/user';
-import CellarContainer from '../Cellar/CellarContainer';
 import { ComicDb } from '../../../../api/models/xkcd';
 
 const defaultState = {
@@ -18,6 +17,15 @@ export class App extends React.Component<ComponentProps, typeof defaultState> {
     }
 
     componentWillMount() {
+        console.log('componentWillMount')
+        this.setState({loading: true}, async () => {
+            await this.props.load()
+            // await this.props.loadTest()
+            this.setState({loading: false})
+        })
+    }
+
+    fetchComic() {
         this.setState({loading: true}, async () => {
             await this.props.load()
             this.setState({loading: false})
@@ -30,14 +38,16 @@ export class App extends React.Component<ComponentProps, typeof defaultState> {
             (<Loading />) :
             (
                 <div>
-                    <h1>Nothing to see here</h1>
+                    <HomeContainer />
+                    {/* <h1>Nothing to see here</h1>
                     {this.props.comics.length > 0 &&
-                        _.map(this.props.comics, (comic: ComicDb) => {
+                        _.map(this.props.comics, (comic: ComicDb, index: number) => {
                             return(
-                                <h2>{comic.title}</h2>
+                                <h2 key={index}>{comic.title}</h2>
                             )
-                        })
-                    }
+                        })}
+                    } */}
+                    <a onClick={this.fetchComic.bind(this)}>Fetch Another</a>
                 </div>
             )
         )

@@ -1,7 +1,7 @@
 
 export const config = {
   database: {
-    database: process.env.MYSQL_DATABASE || 'cellar',
+    database: process.env.MYSQL_DATABASE || 'xkcd',
     host: process.env.MYSQL_HOST || 'localhost',
     password: process.env.MYSQL_PASSWORD || '',
     port: Number(process.env.MYSQL_PORT || '3306'),
@@ -10,5 +10,5 @@ export const config = {
   secrets: {
     cookie: process.env.COOKIE_KEY || '4uV1lNoKtMDDMXwppp'
   },
-  sessionName: 'cellar_session',
+  sessionName: 'xkcd_session',
 }

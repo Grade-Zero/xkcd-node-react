@@ -1,9 +1,9 @@
 let xkcd = require('xkcd-api')
 import {XKCD} from '@ffflorian/xkcdjs'
-import { Comic, XkcdResponse } from '../models/xkcd'
-import { SSL_OP_TLS_BLOCK_PADDING_BUG } from 'constants';
+import { Comic, XkcdResponse, ComicDb } from '../models/xkcd'
+import { insertComicDb, fetchComicsDb } from '../db/xkcd'
 
-export async function getRandomComic(): Promise<Comic> {
+export async function getRandomComic(): Promise<Comic[]> {
     // return await xkcd.random(async function(error: any, response: XkcdResponse) {
     //     if (error) {
     //         console.error('error', error);
@@ -61,7 +61,10 @@ export async function getRandomComic(): Promise<Comic> {
         return res
     })
 
-    return comic
+    let array: Comic[] = []
+    array.push(comic)
+    // return [comic]
+    return array
     // return true
 }
 
@@ -100,3 +103,18 @@ export async function getRandomComicTs(): Promise<boolean> {
         return true
     })
 }
+
+export async function fetchComics(limit?: number): Promise<ComicDb[]> {
+    return fetchComicsDb(null, limit);
+}
+
+export async function insertComic(comic: Comic): Promise<undefined> {
+    // let archivedBottles = _.map(bottles, (bottle: WineDb) => {
+    //     return {...bottle, archived: 1}
+    // })
+    insertComicDb(null, comic)
+    // let ids: number[] = archivedBottles.map((bottle) => bottle.id)
+    // archiveBottlesDb(null, ids)
+    return undefined
+}
+

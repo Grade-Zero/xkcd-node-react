@@ -265,9 +265,22 @@ const models: TsoaRoute.Models = {
             "url": { "dataType": "string", "required": true },
         },
     },
-    "StandardResponseComic": {
+    "StandardResponseComic[]": {
         "properties": {
-            "data": { "ref": "Comic", "required": true },
+            "data": { "dataType": "array", "array": { "ref": "Comic" }, "required": true },
+            "meta": { "dataType": "any", "required": true },
+        },
+    },
+    "ComicDb": {
+        "properties": {
+            "title": { "dataType": "string", "required": true },
+            "url": { "dataType": "string", "required": true },
+            "id": { "dataType": "double", "required": true },
+        },
+    },
+    "StandardResponseComicDb[]": {
+        "properties": {
+            "data": { "dataType": "array", "array": { "ref": "ComicDb" }, "required": true },
             "meta": { "dataType": "any", "required": true },
         },
     },
@@ -737,6 +750,45 @@ export function RegisterRoutes(app: any) {
 
 
             const promise = controller.Walls.apply(controller, validatedArgs);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/v1/xkcd/dbComics',
+        function(request: any, response: any, next: any) {
+            const args = {
+                limit: { "in": "query", "name": "limit", "dataType": "double" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new XKCDController();
+
+
+            const promise = controller.Comics.apply(controller, validatedArgs);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/v1/xkcd/comic',
+        function(request: any, response: any, next: any) {
+            const args = {
+                request: { "in": "request", "name": "request", "required": true, "dataType": "object" },
+                body: { "in": "body", "name": "body", "required": true, "ref": "Comic" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new XKCDController();
+
+
+            const promise = controller.InsertComic.apply(controller, validatedArgs);
             promiseHandler(controller, promise, response, next);
         });
 
