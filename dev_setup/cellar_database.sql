@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS `comics`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `comics` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `title` int(11) NOT NULL,
+  `title` vachar(100) NOT NULL,
   `url` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

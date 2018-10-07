@@ -771,6 +771,24 @@ export function RegisterRoutes(app: any) {
             const promise = controller.Comics.apply(controller, validatedArgs);
             promiseHandler(controller, promise, response, next);
         });
+    app.get('/v1/xkcd/fetch',
+        function(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new XKCDController();
+
+
+            const promise = controller.FetchComics.apply(controller, validatedArgs);
+            promiseHandler(controller, promise, response, next);
+        });
     app.post('/v1/xkcd/comic',
         function(request: any, response: any, next: any) {
             const args = {

@@ -66,7 +66,7 @@ export class Login extends React.Component<{ verifyAuthenticated: Function }, ty
       <div className='login_container'>
         <div style={{margin: 'auto'}}>
             <div className='logo-container'>
-                <h3>Cellar</h3>
+                <h3>XKCD</h3>
             </div>
             <h2 style={{ marginTop: '0px' }}>Login first</h2>
                 {this.state.loading ?

@@ -2,7 +2,7 @@ import * as express from 'express'
 import { Comic, ComicDb } from '../models/xkcd'
 import { StandardResponse } from '../models/standard'
 import { Route, Get, Tags, Query, Post, Request, Body } from 'tsoa'
-import { getRandomComic, insertComic, fetchComics } from '../services/xkcd';
+import { getRandomComic, insertComic, fetchComics, fetchAllComics } from '../services/xkcd';
 
 
 @Route('xkcd')
@@ -23,8 +23,15 @@ export class XKCDController {
     public async Comics(
         @Query() limit?: number,
     ): Promise<StandardResponse<ComicDb[]>> {
-        let data = await fetchComics(limit)
+        let data = await fetchComics(9)
         console.log('controller fetch data', data)
+        return {data, meta: {}};
+    }
+
+    @Get('fetch')
+    @Tags('Open')
+    public async FetchComics(): Promise<StandardResponse<ComicDb[]>> {
+        let data = await fetchAllComics()
         return {data, meta: {}};
     }
 

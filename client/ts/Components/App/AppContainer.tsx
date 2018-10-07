@@ -1,41 +1,54 @@
+import * as _ from 'lodash'
 import { connect } from 'react-redux'
 import { App } from './App'
 import { RootState } from '../../store';
 import { Dispatch } from 'redux';
 import { actions as userActions } from '../../store/user/action'
-import { actions as companyActions } from '../../store/company/action'
 import { actions as comicActions } from '../../store/comic/action'
 import axios from 'axios';
-
-import { WineDb as WineModel } from '../../../../api/models/wine'
 import { generateApiUrl } from '../../services/api';
 import { config } from '../../config';
-import { Comic } from '../../../../api/models/xkcd';
+import { Comic, ComicDb } from '../../../../api/models/xkcd';
 
 const mapStateToProps = (state: RootState) => ({
-    // user: state.user.active,
-    // company: state.company.active
     comics: state.comic.comics
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     load: async () => {
         let fetchPayload = await axios.get(generateApiUrl('/v1/xkcd/comics'), config.api.defaultConf)
-        console.log(fetchPayload)
         await axios.post(generateApiUrl(`/v1/xkcd/comic`), fetchPayload.data.data[0], config.api.defaultConf)
         // Can't connect to db due to no docker
-        // let [comicPayload] = await Promise.all([
-        //     axios.get(generateApiUrl('/v1/xkcd/dbComics'), config.api.defaultConf)
-        // ])
-        // let comics = comicPayload.data.data
+        let [comicPayload] = await Promise.all([
+            axios.get(generateApiUrl('/v1/xkcd/dbComics'), config.api.defaultConf)
+        ])
+        let comics = comicPayload.data.data
 
-        // dispatch(comicActions.setComics(comicPayload.data.data))
-        dispatch(comicActions.setComics(fetchPayload.data.data))
-        // let userPayload = await axios.get(generateApiUrl('/v1/user/active/'), config.api.defaultConf)
-        // let user = userPayload.data.data
-        // dispatch(userActions.setActiveUser(user))
-        // let companyPayload = await axios.get(generateApiUrl(`/v1/company/${user.company_id}/`), config.api.defaultConf)
-        // dispatch(companyActions.setActiveCompany(companyPayload.data.data))
+        dispatch(comicActions.setComics(comicPayload.data.data))
+    },
+    reload: async (current: ComicDb[]) => {
+        let fetchPayload = await axios.get(generateApiUrl('/v1/xkcd/fetch'), config.api.defaultConf)
+        let all = _.shuffle(fetchPayload.data.data)
+        let comics: ComicDb[] = []
+        _.each(all, (comic: ComicDb) => {
+            if (!_.find(current, {id: comic.id})) {
+                if (comics.length < 9) {
+                    comics.push(comic)
+                }
+            }
+        })
+        dispatch(comicActions.setComics(comics))
+    },
+    loadBatch: async () => {
+        for (let i = 0; i < 10; i++) {
+            let fetchPayload = await axios.get(generateApiUrl('/v1/xkcd/comics'), config.api.defaultConf)
+            await axios.post(generateApiUrl(`/v1/xkcd/comic`), fetchPayload.data.data[0], config.api.defaultConf)
+        }
+        let [comicPayload] = await Promise.all([
+            axios.get(generateApiUrl('/v1/xkcd/dbComics'), config.api.defaultConf)
+        ])
+        let comics = comicPayload.data.data
+        dispatch(comicActions.setComics(comicPayload.data.data))
     },
     insertFetchedComic: async (fields: Comic) => {
         await axios.post(generateApiUrl(`/v1/xkcd/comic`), fields, config.api.defaultConf)
