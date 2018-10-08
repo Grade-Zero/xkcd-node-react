@@ -1,17 +1,16 @@
 version: '2.2'
 services:
   node_server:
-    # image: prendi/cellar_project:v1.0.0
-    image: infuriatedleek/react_node:v1.0.1
+    image: infuriatedleek/react_node:v1.0.2
     ports:
-     - "4000:80"
+     - "80:4000"
     environment:
      - MYSQL_USER=root
      - MYSQL_PASSWORD=
      - MYSQL_DATABASE=xkcd
      - MYSQL_HOST=mysql
-    volumes:
-     - ./:/node_server
+    # volumes:
+    #  - ./:/node_server
     depends_on:
      - mysql
   mysql:
