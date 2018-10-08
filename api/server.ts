@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const helmet = require('helmet')
 const cookieParser = require('cookie-parser')
 // import './controllers/authentication'; // Used for TSOA build
+import './controllers/xkcd';
 import * as m from './middleware'
 import { RegisterRoutes } from './routes';
 import { config } from './config';
@@ -23,12 +24,16 @@ export async function boot() {
 
   RegisterRoutes(app)
   const publicDistPath = path.join(__dirname, '..', 'client', 'dist')
-
   let portalRoutes = getEnumValues(ClientRoutes)
   _.each(portalRoutes, (route) => {
     app.use(route, express.static(__dirname + '/../client/dist'));
     app.get(route, (req, res) => res.sendFile(path.join(publicDistPath, 'index.html')))
   })
+
+  // let clientRoutes = getEnumValues(ClientRoutes)
+  // _.each(clientRoutes, (route) => {
+  //   app.get(route, (req, res) => res.sendFile('/client/dist/index.html'))
+  // })
 
   // Error Handler
   app.use(m.errorHandler)

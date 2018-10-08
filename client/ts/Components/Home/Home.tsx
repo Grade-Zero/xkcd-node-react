@@ -18,6 +18,7 @@ export class Home extends React.Component<ComponentProps, typeof defaultState> {
     }
 
     public render() {
+        console.log('home render')
         return (
             <div className='comic-container'>
                 {(this.props.comics.length === 0 && !this.state.loading) && (
@@ -30,7 +31,8 @@ export class Home extends React.Component<ComponentProps, typeof defaultState> {
                         _.map(this.props.comics, (comic: ComicDb, index: number) => {
                             return(
                                 <div className='comic' key={index}>
-                                    <Link to={ClientRoutes.comics + comic.id}>
+                                    {/* <Link to={ClientRoutes.comic}> */}
+                                    <Link to={'/comics/comics/' + comic.id}>
                                         <h2>{comic.title}</h2>
                                         <img src={comic.url} />
                                     </Link>

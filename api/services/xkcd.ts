@@ -1,7 +1,7 @@
 let xkcd = require('xkcd-api')
 import {XKCD} from '@ffflorian/xkcdjs'
 import { Comic, XkcdResponse, ComicDb } from '../models/xkcd'
-import { insertComicDb, fetchComicsDb, fetchAllComicsDb } from '../db/xkcd'
+import { insertComicDb, fetchComicsDb, fetchAllComicsDb, fetchComicByIdDb } from '../db/xkcd'
 
 export async function getRandomComic(): Promise<Comic[]> {
     // return await xkcd.random(async function(error: any, response: XkcdResponse) {
@@ -110,6 +110,10 @@ export async function fetchComics(limit?: number): Promise<ComicDb[]> {
 
 export async function fetchAllComics(limit?: number): Promise<ComicDb[]> {
     return fetchAllComicsDb(null);
+}
+
+export async function fetchComicById(id: number): Promise<ComicDb> {
+    return fetchComicByIdDb(null, id)
 }
 
 export async function insertComic(comic: Comic): Promise<undefined> {

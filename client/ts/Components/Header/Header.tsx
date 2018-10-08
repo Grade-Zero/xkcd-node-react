@@ -1,10 +1,14 @@
 import * as React from 'react'
 import { ComponentProps } from './HeaderContainer'
 
-export class Header extends React.Component<ComponentProps, undefined> {
+const defaultState = {
+}
+
+export class Header extends React.Component<ComponentProps, typeof defaultState> {
 
     constructor(props: any) {
         super(props)
+        this.state = defaultState
     }
 
     public render() {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { App } from './App'
 import { RootState } from '../../store';
 import { Dispatch } from 'redux';
+import { withRouter } from 'react-router-dom'
 import { actions as comicActions } from '../../store/comic/action'
 import axios from 'axios';
 import { generateApiUrl } from '../../services/api';
@@ -64,8 +65,11 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 
 export type ComponentProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App)
+const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(App)
+export default (withRouter as any)(connectedComponent)
+
+// export default connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+// )(App)
 

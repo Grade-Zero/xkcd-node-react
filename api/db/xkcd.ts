@@ -26,6 +26,16 @@ export function fetchComicsDb (optionalConnection: OptionalConnection, limit?: n
     })
   }
 
+export function fetchComicByIdDb (optionalConnection: OptionalConnection, id: number): Promise<ComicDb> {
+    return queryHandler(optionalConnection, async function (client: PoolConnection) {
+      const comic = await query<ComicDb>(client, {
+          sql: `SELECT * FROM comics WHERE id = ?`,
+          values: [id]
+      })
+      return comic
+    })
+  }
+
 export function fetchAllComicsDb (optionalConnection: OptionalConnection): Promise<ComicDb[]> {
     return queryHandler(optionalConnection, async function (client: PoolConnection) {
       const comics = await query<ComicDb[]>(client, {

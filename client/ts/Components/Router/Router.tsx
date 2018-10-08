@@ -7,7 +7,8 @@ import AppContainer from '../App/AppContainer'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
 const defaultState = {
-    authenticated: undefined as undefined | boolean
+    // authenticated: undefined as undefined | boolean
+    authenticated: true as boolean
 }
 
 export class Router extends React.Component<{}, typeof defaultState> {
@@ -21,6 +22,7 @@ export class Router extends React.Component<{}, typeof defaultState> {
     }
 
     async verifyAuthenticated(authenticated?: boolean, callback?: any) {
+        console.log('verifyAuthenticated called')
         if (_.isBoolean(authenticated)) {
             this.setState({
                 authenticated: authenticated
@@ -43,7 +45,7 @@ export class Router extends React.Component<{}, typeof defaultState> {
     render() {
         return (this.state.authenticated !== undefined) ? (
             <Switch>
-                <PublicRoute path='/comics/' authenticated='true' component={AppContainer} />
+                <PublicRoute path='/comics/' authenticated={this.state.authenticated} component={AppContainer} />
                 <Redirect to='/404' />
             </Switch>
         ) : (

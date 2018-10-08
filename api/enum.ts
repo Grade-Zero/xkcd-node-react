@@ -1,5 +1,5 @@
 export enum ClientRoutes {
-    comics = '/comics/',
-    comic = '/comic/:id',
-    default = '/comics/',
+    comics = '/comics/comics',
+    comic = '/comics/comics/:id',
+    default = '/comics/comics',
 }
