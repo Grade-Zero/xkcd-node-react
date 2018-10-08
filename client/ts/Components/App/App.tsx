@@ -24,7 +24,6 @@ export class App extends React.Component<ComponentProps, typeof defaultState> {
         this.setState({loading: true}, async () => {
             await this.props.load()
             this.setState({loading: false})
-            console.log('componentmoutned')
         })
     }
 
@@ -35,40 +34,8 @@ export class App extends React.Component<ComponentProps, typeof defaultState> {
         })
     }
 
-    fetchNewComics() {
-        this.setState({loading: true}, async () => {
-            await this.props.reload(this.props.comics)
-            this.setState({loading: false})
-        })
-    }
-
-    async apiBatch() {
-        console.log('load new batch')
-        await this.props.loadBatch()
-    }
-
     public render() {
         return (
-            // <div>
-            //     <HeaderContainer />
-            //     {this.state.loading ?
-            //     (
-            //         <Loading />
-            //     ) : (
-            //         <div>
-            //             {(<Switch>
-            //                 <Route exact path={ClientRoutes.comics} component={HomeContainer} />
-            //                 <Route exact path={ClientRoutes.comic} component={ComicContainer} />
-            //                 <Redirect to={ClientRoutes.comics} />
-            //             </Switch>)}
-            //             {/* <HomeContainer /> */}
-            //             <div className='comic-footer'>
-            //                 <a className='btn' onClick={this.fetchNewComics.bind(this)}>Fetch Another</a>
-            //                 <a className='btn' onClick={this.apiBatch.bind(this)}>Load More</a>
-            //             </div>
-            //         </div>
-            //     )}
-            // </div>
             <div>
                  <HeaderContainer />
                  {this.state.loading ?
@@ -80,10 +47,6 @@ export class App extends React.Component<ComponentProps, typeof defaultState> {
                             <Route path={ClientRoutes.comics} component={ComicsContainer} />
                             <Redirect to={ClientRoutes.comics} />
                         </Switch>)}
-                        <div className='comic-footer'>
-                            <a className='btn' onClick={this.fetchNewComics.bind(this)}>Fetch Another</a>
-                            <a className='btn' onClick={this.apiBatch.bind(this)}>Load More</a>
-                        </div>
                     </div>
                  )}
             </div>

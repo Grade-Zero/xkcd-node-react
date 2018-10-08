@@ -48,7 +48,8 @@
 
 .comic-footer {
     padding: 20px;
-    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .btn {

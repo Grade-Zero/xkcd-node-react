@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as _ from 'lodash'
+import './style.scss'
 import { ComponentProps } from './ComicContainer'
 import { ComicDb } from '../../../../api/models/xkcd';
 import { Link } from 'react-router-dom';
@@ -34,13 +35,17 @@ export class Comic extends React.Component<ComponentProps, typeof defaultState> 
         }
         return (
             <div>
-                <Link to={'/comics/comics/'}>
-                    <p>Back</p>
-                </Link>
-                <h1>{!_.isNull(this.state.comic) ? (this.state.comic[0].title) : ('No comic found')}</h1>
-                {/* <img src={this.props.comic.url} /> */}
-                <p>{this.props.match.params.id}</p>
-                <img src={!_.isNull(this.state.comic) ? this.state.comic[0].url : ''} />
+                <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '20px'}}>
+                    <Link to={'/comics/comics/'}>
+                        <a className='btn'>Back</a>
+                    </Link>
+                    <h1>{!_.isNull(this.state.comic) ? (this.state.comic[0].title) : ('No comic found')}</h1>
+                    {/* <img src={this.props.comic.url} /> */}
+                    <p>{this.props.match.params.id}</p>
+                </div>
+                <div style={{display: 'flex', justifyContent: 'center', padding: '20px'}}>
+                    <img src={!_.isNull(this.state.comic) ? this.state.comic[0].url : ''} />
+                </div>
             </div>
         )
     }

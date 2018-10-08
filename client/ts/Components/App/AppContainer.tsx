@@ -18,12 +18,22 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     load: async () => {
         let fetchPayload = await axios.get(generateApiUrl('/v1/xkcd/comics'), config.api.defaultConf)
         await axios.post(generateApiUrl(`/v1/xkcd/comic`), fetchPayload.data.data[0], config.api.defaultConf)
-        let [comicPayload] = await Promise.all([
-            axios.get(generateApiUrl('/v1/xkcd/dbComics'), config.api.defaultConf)
-        ])
-        let comics = comicPayload.data.data
+        // let [comicPayload] = await Promise.all([
+        //     axios.get(generateApiUrl('/v1/xkcd/dbComics'), config.api.defaultConf)
+        // ])
+        // let comics = comicPayload.data.data
 
-        dispatch(comicActions.setComics(comicPayload.data.data))
+        let loadPayload = await axios.get(generateApiUrl('/v1/xkcd/fetch'), config.api.defaultConf)
+        let all = _.shuffle(loadPayload.data.data)
+        let comics: ComicDb[] = []
+        _.each(all, (comic: ComicDb) => {
+            if (comics.length < 9) {
+                comics.push(comic)
+            }
+        })
+        dispatch(comicActions.setComics(comics))
+
+        // dispatch(comicActions.setComics(comicPayload.data.data))
     },
     reload: async (current: ComicDb[]) => {
         let fetchPayload = await axios.get(generateApiUrl('/v1/xkcd/fetch'), config.api.defaultConf)
@@ -44,10 +54,14 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
             await axios.post(generateApiUrl(`/v1/xkcd/comic`), fetchPayload.data.data[0], config.api.defaultConf)
         }
         let [comicPayload] = await Promise.all([
-            axios.get(generateApiUrl('/v1/xkcd/dbComics'), config.api.defaultConf)
+            // axios.get(generateApiUrl('/v1/xkcd/dbComics'), config.api.defaultConf)
+            axios.get(generateApiUrl('/v1/xkcd/fetch'), config.api.defaultConf)
         ])
-        let comics = comicPayload.data.data
-        dispatch(comicActions.setComics(comicPayload.data.data))
+        let fetched = comicPayload.data.data
+        let reversed = _.reverse(fetched)
+        let slice = reversed.slice(0, 9)
+        // dispatch(comicActions.setComics(comicPayload.data.data))
+        dispatch(comicActions.setComics(slice))
     },
     insertFetchedComic: async (fields: Comic) => {
         await axios.post(generateApiUrl(`/v1/xkcd/comic`), fields, config.api.defaultConf)
